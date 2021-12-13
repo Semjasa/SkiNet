@@ -2,4 +2,10 @@
 global using SkiNet.Core.Entities;
 global using Microsoft.EntityFrameworkCore.Migrations;
 global using Microsoft.EntityFrameworkCore.Infrastructure;
+global using SkiNet.Core.Abstractions;
 global using SkiNet.Infrastructure.Data;
+global using Microsoft.Extensions.DependencyInjection;
+global using SkiNet.Infrastructure.Repositories;
+global using Microsoft.EntityFrameworkCore.Metadata.Builders;
+global using System.Reflection;
+global using Microsoft.Extensions.Logging;

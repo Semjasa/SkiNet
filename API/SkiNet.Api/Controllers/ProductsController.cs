@@ -1,28 +1,28 @@
 ﻿namespace SkiNet.Api.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
-public class ProductsController : ControllerBase
+public class ProductsController : BaseController
 {
-    private readonly DataContext _context;
+    private readonly IProductRepository _productRepository;
 
-    public ProductsController(DataContext context)
+    public ProductsController(IProductRepository productRepository)
     {
-        _context = context;
+        _productRepository = productRepository;
     }
 
     [HttpGet]
-    public ActionResult<Product[]> GetProducts()
+    public async Task<ActionResult<IReadOnlyList<Product>>> GetProducts()
     {
-        var products = _context.Products.ToList();
+        var products = await _productRepository.GetProductsAsync();
 
         return Ok(products);
     }
 
     [HttpGet("{id}")]
-    public ActionResult<Product> GetProduct(int id)
+    public async Task<ActionResult<Product>> GetProduct(int id)
     {
-        var product = _context.Products.SingleOrDefault(p => p.Id == id);
+        var product = await _productRepository.GetProductByIdAsync(id);
+
+        if(product == null) return BadRequest("Product not found.");
 
         return Ok(product);
     }
