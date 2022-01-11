@@ -1,29 +1,58 @@
 ﻿namespace SkiNet.Api.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
-public class ProductsController : ControllerBase
+public class ProductsController : BaseApiController
 {
-    private readonly DataContext _context;
+    private readonly IMapper _mapper;
 
-    public ProductsController(DataContext context)
+    public ProductsController(IMapper mapper)
     {
-        _context = context;
+        _mapper = mapper;
     }
 
     [HttpGet]
-    public ActionResult<Product[]> GetProducts()
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ActionResult<Pagination<ProductsToReturnDto>>> GetProducts(
+        [FromServices] IGenericRepository<Product> repository,
+        [FromQuery] ProductSpecifcationParameters productSpecifcationParameters)
     {
-        var products = _context.Products.ToList();
+        var specification = new ProductsWithBrandsAndTypesSpecification(productSpecifcationParameters);
 
-        return Ok(products);
+        var countSpecification = new ProductsWithFiltersForCountSpecification(productSpecifcationParameters);
+
+        var totalItems = await repository.CountAsync(countSpecification);
+
+        var products = await repository
+            .ListAsync(specification);
+
+        var productToReturnDtos = products
+            .Select(product => GetProductsToReturnDto(product)).ToArray();
+
+        var pagination = new Pagination<ProductsToReturnDto>(productSpecifcationParameters.PageIndex, productSpecifcationParameters.PageSize, totalItems, productToReturnDtos);
+
+        return Ok(pagination);
     }
 
     [HttpGet("{id}")]
-    public ActionResult<Product> GetProduct(int id)
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<ProductsToReturnDto>> GetProduct([FromServices] IGenericRepository<Product> repository, int id)
     {
-        var product = _context.Products.SingleOrDefault(p => p.Id == id);
 
-        return Ok(product);
+        var specification = new ProductsWithBrandsAndTypesSpecification(id);
+
+        var product = await repository
+            .GetEntityWithSecificationAsync(specification);
+
+        if (product == null) return NotFound(new ApiResponse(404));
+
+        var productToReturnDto = GetProductsToReturnDto(product);
+
+        return Ok(productToReturnDto);
+    }
+
+    private ProductsToReturnDto GetProductsToReturnDto(Product product)
+    {
+        return _mapper
+            .Map<Product, ProductsToReturnDto>(product);
     }
 }

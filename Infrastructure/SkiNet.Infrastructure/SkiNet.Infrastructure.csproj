@@ -24,4 +24,8 @@
     <ProjectReference Include="..\..\Core\SkiNet.Core\SkiNet.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\SeedData\" />
+  </ItemGroup>
+
 </Project>
