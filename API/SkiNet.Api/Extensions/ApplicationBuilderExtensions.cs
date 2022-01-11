@@ -2,9 +2,13 @@
 
 public static class ApplicationBuilderExtensions
 {
-    public static IApplicationBuilder UseDefaultHttpsRedirection(this IApplicationBuilder applicationBuilder) => 
-        applicationBuilder.UseHttpsRedirection();
-
-    public static IApplicationBuilder UseDefaultAuthorization(this IApplicationBuilder applicationBuilder) => 
-        applicationBuilder.UseAuthorization();
+    public static IApplicationBuilder UseApplicationDefaults(this IApplicationBuilder applicationBuilder) => 
+        applicationBuilder
+            .UseMiddleware<ExceptionMiddleware>()
+            .UseSwagger()
+            .UseSwaggerUI()
+            .UseStatusCodePagesWithReExecute("/errors/{0}")
+            .UseHttpsRedirection()
+            .UseCors("CorsPolicy")
+            .UseAuthorization();
 }

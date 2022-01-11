@@ -1,6 +1,4 @@
-﻿using System.Text.Json;
-
-namespace SkiNet.Infrastructure.Data;
+﻿namespace SkiNet.Infrastructure.Data;
 
 public class DataContextSeed
 {
@@ -10,41 +8,56 @@ public class DataContextSeed
         {
             if (!context.ProductBrands.Any())
             {
-                var brandDatas = File.ReadAllText("../../Infrastructure/SkiNet.Infrastructure/Data/SeedData/brands.json");
+                var brandDatas = File
+                    .ReadAllText("../../Infrastructure/SkiNet.Infrastructure/Data/SeedData/brands.json");
 
-                var brands = JsonSerializer.Deserialize<List<ProductBrand>>(brandDatas);
+                var brands = JsonSerializer
+                    .Deserialize<List<ProductBrand>>(brandDatas);
 
-                await context.ProductBrands.AddRangeAsync(brands);
+                await context.ProductBrands
+                    .AddRangeAsync(brands);
 
-                await context.SaveChangesAsync();
+                await context
+                    .SaveChangesAsync();
             }
 
             if (!context.ProductTypes.Any())
             {
-                var typeDatas = File.ReadAllText("../../Infrastructure/SkiNet.Infrastructure/Data/SeedData/types.json");
+                var typeDatas = File
+                    .ReadAllText("../../Infrastructure/SkiNet.Infrastructure/Data/SeedData/types.json");
 
-                var types = JsonSerializer.Deserialize<List<ProductType>>(typeDatas);
+                var types = JsonSerializer
+                    .Deserialize<List<ProductType>>(typeDatas);
 
-                await context.ProductTypes.AddRangeAsync(types);
+                await context.ProductTypes
+                    .AddRangeAsync(types);
 
-                await context.SaveChangesAsync();
+                await context
+                    .SaveChangesAsync();
             }
 
             if (!context.Products.Any())
             {
-                var productDatas = File.ReadAllText("../../Infrastructure/SkiNet.Infrastructure/Data/SeedData/products.json");
+                var productDatas = File
+                    .ReadAllText("../../Infrastructure/SkiNet.Infrastructure/Data/SeedData/products.json");
 
-                var products = JsonSerializer.Deserialize<List<Product>>(productDatas);
+                var products = JsonSerializer
+                    .Deserialize<List<Product>>(productDatas);
 
-                await context.Products.AddRangeAsync(products);
+                await context.Products
+                    .AddRangeAsync(products);
 
-                await context.SaveChangesAsync();
+                await context
+                    .SaveChangesAsync();
             }
         }
         catch (Exception ex)
         {
-            var logger = loggerFactory.CreateLogger<DataContextSeed>();
-            logger.LogError(ex.Message);
+            var logger = loggerFactory
+                .CreateLogger<DataContextSeed>();
+
+            logger
+                .LogError(ex.Message);
         }
     }
 }
