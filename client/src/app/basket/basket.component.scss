@@ -1,0 +1,11 @@
+$color: #dc3545;
+
+a {
+    & :hover{
+        color: darken($color: $color, $amount: 20%);
+    }
+}
+
+i { 
+    text-decoration: none;
+}

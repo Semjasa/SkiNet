@@ -1,0 +1,31 @@
+<div class="form-floating rounded-3 mb-3 has-validation">
+    <input
+        [ngClass]="(this.controlDir 
+                && this.controlDir.control 
+                && !this.controlDir.control.valid
+                && this.controlDir.control.touched)
+            ? !controlDir.control.valid 
+                ? 'is-invalid' 
+                : 'is-valid' 
+            : null"
+        [type]="type"
+        (input)="onChange($event.target.value)"
+        (blur)="onTouched()"
+        id="{{ label }}"
+        #input
+        class="form-control"
+        placeholder="{{ label }}"
+    >
+    <label for="{{ label }}">{{ label }}</label>
+    <div class="invalid-feedback" *ngIf="(this.controlDir 
+            && this.controlDir.control 
+            && !this.controlDir.control.valid
+            && this.controlDir.control.touched)">
+        <span *ngIf="controlDir.control.errors['required']">
+            {{ label }} is required
+        </span>
+        <span *ngIf="controlDir.control.errors['pattern']">
+            Invalid email address
+        </span>
+    </div>
+</div>

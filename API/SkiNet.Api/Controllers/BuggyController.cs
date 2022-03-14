@@ -9,6 +9,13 @@ public class BuggyController : BaseApiController
         _context = context;
     }
 
+    [HttpGet("testauth")]
+    [Authorize]
+    public ActionResult<string> GetSecretText()
+    {
+        return "secret stuff";
+    }
+
     [HttpGet("notfound")]
     public ActionResult GetNotFoundRequest()
     {

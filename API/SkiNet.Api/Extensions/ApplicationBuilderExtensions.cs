@@ -10,5 +10,6 @@ public static class ApplicationBuilderExtensions
             .UseStatusCodePagesWithReExecute("/errors/{0}")
             .UseHttpsRedirection()
             .UseCors("CorsPolicy")
+            .UseAuthentication()
             .UseAuthorization();
 }

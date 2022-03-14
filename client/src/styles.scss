@@ -1,0 +1,36 @@
+/* You can add global styles to this file, and also import other style files */
+.xng-breadcrumb-root {
+    padding: 8px 16px;
+    display: inline;
+    border-radius: 0;
+    color: var(--bs-primary);
+    text-decoration: none;
+}
+
+.xng-breadcrumb-list {
+    color: var(--bs-primary);
+    text-decoration: none;
+    & a:hover {
+        color: var(--bs-primary);
+    }
+}
+
+label.xng-breadcrumb-trail {
+    margin-bottom: 0;
+    color: var(--bs-primary);
+    font-weight: 600;
+}
+
+.xng-breadcrumb-seperator {
+    padding: 0 0;
+    color: var(--bs-primary);
+}
+
+a {
+    color: var(--bs-dark);
+    text-decoration: none;
+    & :hover{
+        color: var(--bs-primary);
+        text-decoration: underline;
+    }
+}

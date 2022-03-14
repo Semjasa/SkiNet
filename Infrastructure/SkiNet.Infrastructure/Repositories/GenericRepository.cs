@@ -9,7 +9,9 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
         _context = context;
     }
 
-    public async Task<int> CountAsync(ISpecification<T> specification) => await ApplySpecification(specification).CountAsync();
+    public async Task<int> CountAsync(ISpecification<T> specification) => 
+        await ApplySpecification(specification)
+            .CountAsync();
 
     public async Task<IReadOnlyList<T>> GetAllAync() =>
         await _context

@@ -1,0 +1,21 @@
+.form-inline .form-control {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+  }
+
+input {
+  width: 300px;
+}
+
+option {
+  color: var(--bs-dark);
+
+  &:checked {
+    background-color: var(--bs-primary);
+    color: var(--bs-light);
+  } 
+  &:hover {
+    background-color: var(--bs-primary);
+  }
+}

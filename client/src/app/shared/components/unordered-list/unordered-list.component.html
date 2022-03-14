@@ -1,0 +1,10 @@
+<ul class="list-group my-3">
+    <li class="list-group-item" 
+        *ngFor="let entry of listEntries"
+        [class.active]="entry.id === selectedEntryId"
+        [value]="entry.id"
+        (click)="onEntrySelected(entry.id)"
+    >
+        {{ entry.name }}
+    </li>
+</ul>

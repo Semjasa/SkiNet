@@ -1,0 +1,15 @@
+<div class="d-flex justify-content-center align-content-center mt-5 text-center">
+    <div class="col-3">
+        <form class="form-signin rounded-3" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <img class="mb-4" src="/assets/images/logo.png" alt="" height="57">
+            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+        
+            <app-text-input formControlName="email" [label]="'Email Address'" [type]="'email'"></app-text-input>
+        
+            <app-text-input formControlName="password" [label]="'Password'" [type]="'password'"></app-text-input>
+            
+            <button [disabled]="loginForm.invalid" class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+            <p class="mt-5 mb-3 text-muted">© 2022</p>
+        </form>
+    </div>
+</div>
